@@ -1,0 +1,58 @@
+name: Deploy the old address
+
+# Builds the Karbka app from its own repository at a release tag, with VITE_LEGACY=1:
+# the same app plus the "Karbka has moved" screen that sends the library to app.karbka.com.
+# Run it by hand (Actions → Deploy the old address → Run workflow) with the tag to build.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Release tag of the app to build (for example v0.18.0)
+        required: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  APP_REPO: hlib-zinchenko/flashcards-pwa
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          repository: ${{ env.APP_REPO }}
+          ref: ${{ inputs.ref }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Check the tag has the legacy build
+        run: grep -q "VITE_LEGACY" src/lib/transfer.ts || { echo "::error::${{ inputs.ref }} has no legacy mode (VITE_LEGACY); pick a newer tag."; exit 1; }
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+        env:
+          VITE_LEGACY: '1'
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
