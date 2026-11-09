@@ -1,6 +1,6 @@
 # flashcards-legacy
 
-Keeps the old address of [Karbka](https://github.com/hlib-zinchenko/flashcards-pwa), https://flashcards.hzinchenko.com/, alive after the app moved to https://app.karbka.com/.
+Keeps the old address of [Karbka](https://github.com/hlib-zinchenko/karbka), https://flashcards.hzinchenko.com/, alive after the app moved to https://app.karbka.com/.
 
 Each person's cards live in their browser at the address they used, so the old address can't simply redirect: that would leave the cards behind and stop installed apps from updating. Instead this repository serves the same app, built with `VITE_LEGACY=1`. It works as before and shows a "Karbka has moved" screen that moves the library to the new address in one tap, or by a backup file on an iPhone home-screen app.
 

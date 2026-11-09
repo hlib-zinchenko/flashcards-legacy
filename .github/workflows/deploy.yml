@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  APP_REPO: hlib-zinchenko/flashcards-pwa
+  APP_REPO: hlib-zinchenko/karbka
 
 jobs:
   build:
