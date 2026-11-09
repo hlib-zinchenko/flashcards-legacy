@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: Release tag of the app to build (for example v0.18.0)
+        description: Release tag of the app to build (for example v1.0.0)
         required: true
 
 permissions:

@@ -8,6 +8,6 @@ There is no app code here. The workflow checks out the app repository at a relea
 
 ## Deploy
 
-Actions → **Deploy the old address** → Run workflow, with the app's release tag (for example `v0.18.0`). Pages: source GitHub Actions, custom domain `flashcards.hzinchenko.com`.
+Actions → **Deploy the old address** → Run workflow, with the app's release tag (for example `v1.0.0`). Pages: source GitHub Actions, custom domain `flashcards.hzinchenko.com`.
 
 Keep it running for at least a year after the move: until people have moved, their cards are only here.
